@@ -21,7 +21,8 @@ http.createServer(function(request, response) {
 
 function urlToPath(url) {
   var path = require("url").parse(url).pathname;
-  return "." + decodeURIComponent(path);
+  var decoded = decodeURIComponent(path);
+  return "." + decoded.replace(/(\/|\\)\.\.(\/|\\|$)/g, "/")
 }
 
 methods.GET = function(path, respond) {
